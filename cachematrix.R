@@ -12,35 +12,34 @@
 ##     2.2 value of inverse of the matrix
  
 
-makeCacheMatrix <- function(x = matrix()) {
-  i <- NULL
-  set <- function(y) {
-    x <<- y
-    i <<- NULL
+makeCacheMatrix <- function(p = matrix()) {
+  v1 <- NULL
+  equate <- function(y) {
+    p <<- y
+    v1 <<- NULL
   }
-  get <- function() x
-  setinverse <- function(inverse) i <<- inverse
-  getinverse <- function() i
-  list(set = set,
-       get = get,
-       setinverse = setinverse,
-       getinverse = getinverse)
+  bring <- function() p
+  equateinverse <- function(invert) v1 <<- invert
+  bringinverse <- function() v1
+  list(equate = equate,
+       bring = bring,
+       equateinverse = equateinverse,
+       bringinverse = bringinverse)
 }
-
 
 ## this function returns the inverse of the matrix by first checking if the inverse is present in the memory or not. If inverse is present then the result is obtained and skips the
 ## computation. If it is not the case then the inverse is computed and the setinverse function sets the value in cache.
 
 
-cacheSolve <- function(x, ...) {
-  i <- x$getinverse()
-  if (!is.null(i)) {
-    message("getting cached data")
-    return(i)
+cacheSolve <- function(p, ...) {
+  v1 <- p$bringinverse()
+  if (!is.null(v1)) {
+    message("cached")
+    return(v1)
   }
-  data <- x$get()
-  i <- solve(data, ...)
-  x$setinverse(i)
-  i
-        ## Return a matrix that is the inverse of 'x'
+  data <- p$bring()
+  v1 <- solve(data, ...)
+  p$equateinverse(v1)
+  v1
 }
+
